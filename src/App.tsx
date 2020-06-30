@@ -36,7 +36,10 @@ function App() {
   const increment = (points: number) => {
     const result = points + 1;
     setPoints(result);
-    setMessages([`${points} was incremented to ${result}`, ...messages]);
+    setMessages([
+      `${points} was incremented to ${result}`,
+      ...messages.slice(0, 4),
+    ]);
   };
   const decrement = (points: number) => {
     let result = points - 1;
@@ -44,7 +47,10 @@ function App() {
       return;
     }
     setPoints(result);
-    setMessages([`${points} was decremented to ${result}`, ...messages]);
+    setMessages([
+      `${points} was decremented to ${result}`,
+      ...messages.slice(0, 4),
+    ]);
   };
 
   return (
