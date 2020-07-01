@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useStorageState } from "react-storage-hooks";
 
 // core
 import AppBar from "@material-ui/core/AppBar";
@@ -38,7 +39,7 @@ const useStyles = makeStyles({
 
 function App() {
   const classes = useStyles();
-  const [points, setPoints] = useState<number>(0);
+  const [points, setPoints] = useStorageState(localStorage, "points", 0);
   const [messages, setMessages] = useState<React.ReactNode[]>([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
