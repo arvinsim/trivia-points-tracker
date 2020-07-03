@@ -9,8 +9,7 @@ import { SignIn } from "./pages/SignIn";
 import * as firebase from "firebase/app";
 // If you enabled Analytics in your project, add the Firebase SDK for Analytics
 import "firebase/analytics";
-// Add the Firebase products that you want to use
-import "firebase/auth";
+import { Home } from "./pages/Home";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -23,8 +22,6 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-console.log(firebaseConfig);
-
 function App() {
   useEffect(() => {
     // Initialize Firebase
@@ -36,11 +33,14 @@ function App() {
       <CssBaseline>
         <Router>
           <Switch>
-            <Route path="/points-tracker">
+            <Route exact path="/points-tracker">
               <PointsTracker />
             </Route>
-            <Route>
+            <Route exact path="/sign-in">
               <SignIn />
+            </Route>
+            <Route>
+              <Home />
             </Route>
           </Switch>
         </Router>

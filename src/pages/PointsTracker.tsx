@@ -17,6 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import MenuIcon from "@material-ui/icons/Menu";
+import {DefaultLayout} from "../layouts/DefaultLayout";
 
 const useStyles = makeStyles({
   points: {
@@ -72,7 +73,7 @@ export function PointsTracker() {
   };
 
   return (
-    <Grid container justify="center" alignItems="center" spacing={4}>
+    <DefaultLayout>
       <Grid item xs={12}>
         <AppBar position="static">
           <Toolbar>
@@ -135,6 +136,6 @@ export function PointsTracker() {
           );
         })}
       </Grid>
-    </Grid>
+    </DefaultLayout>
   );
 }
