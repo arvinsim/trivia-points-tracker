@@ -2,12 +2,9 @@ import React, { useState } from "react";
 import { useStorageState } from "react-storage-hooks";
 
 // core
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -17,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import MenuIcon from "@material-ui/icons/Menu";
-import {DefaultLayout} from "../layouts/DefaultLayout";
+import { DefaultLayout } from "../layouts/DefaultLayout";
 
 const useStyles = makeStyles({
   points: {
@@ -73,33 +70,31 @@ export function PointsTracker() {
   };
 
   return (
-    <DefaultLayout>
-      <Grid item xs={12}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              aria-controls="simple-menu"
-              aria-haspopup="true"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              onClick={handleMenuButtonClick}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="fade-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={closeMenu}
-            >
-              <MenuItem onClick={resetPoints}>Reset Points</MenuItem>
-            </Menu>
-            <Typography variant="h5">Trivia Points Tracker</Typography>
-          </Toolbar>
-        </AppBar>
-      </Grid>
+    <DefaultLayout
+      hamburgerMenu={
+        <React.Fragment>
+          <IconButton
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={handleMenuButtonClick}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id="fade-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={closeMenu}
+          >
+            <MenuItem onClick={resetPoints}>Reset Points</MenuItem>
+          </Menu>
+        </React.Fragment>
+      }
+    >
       <Grid item xs={8}>
         <Paper className={classes.points}>
           {points} {points < 2 ? "pt" : "pts"}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
@@ -22,12 +22,10 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-function App() {
-  useEffect(() => {
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-  });
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
+function App() {
   return (
     <div className="App">
       <CssBaseline>
