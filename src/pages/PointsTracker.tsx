@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import { useStorageState } from "react-storage-hooks";
+import { useSelector, useDispatch } from "react-redux";
 
 // core
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 
 // icons
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
-import MenuIcon from "@material-ui/icons/Menu";
+
 import { DefaultLayout } from "../layouts/DefaultLayout";
+import { incrementPoints, decrementPoints, selectPoints } from "../redux";
 
 const useStyles = makeStyles({
   points: {
@@ -32,69 +30,26 @@ const useStyles = makeStyles({
   },
 });
 
-// import "./App.css";
-
 export function PointsTracker() {
   const classes = useStyles();
-  const [points, setPoints] = useStorageState(localStorage, "points", 0);
+  const dispatch = useDispatch();
+  const points = useSelector(selectPoints);
   const [messages, setMessages] = useState<React.ReactNode[]>([]);
-  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const addMessage = (message: React.ReactNode) => {
     setMessages([message, ...messages.slice(0, 4)]);
   };
-
-  const increment = (points: number) => {
-    const result = points + 1;
-    setPoints(result);
-    addMessage(`${points} was incremented to ${result}`);
+  const increment = () => {
+    dispatch(incrementPoints());
+    addMessage(`${points} was incremented to ${points}`);
   };
-  const decrement = (points: number) => {
-    let result = points - 1;
-    if (result < 0) {
-      return;
-    }
-    setPoints(result);
-    addMessage(`${points} was decremented to ${result}`);
-  };
-  const handleMenuButtonClick = (event: any) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const closeMenu = () => {
-    setAnchorEl(null);
-  };
-  const resetPoints = () => {
-    setPoints(0);
-    addMessage("Points was reset to 0");
-    closeMenu();
+  const decrement = () => {
+    dispatch(decrementPoints());
+    addMessage(`${points} was decremented to ${points}`);
   };
 
   return (
-    <DefaultLayout
-      hamburgerMenu={
-        <React.Fragment>
-          <IconButton
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleMenuButtonClick}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="fade-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={closeMenu}
-          >
-            <MenuItem onClick={resetPoints}>Reset Points</MenuItem>
-          </Menu>
-        </React.Fragment>
-      }
-    >
+    <DefaultLayout>
       <Grid item xs={8}>
         <Paper className={classes.points}>
           {points} {points < 2 ? "pt" : "pts"}
@@ -105,7 +60,7 @@ export function PointsTracker() {
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() => increment(points)}
+          onClick={() => increment()}
           startIcon={<ArrowUpwardIcon style={{ fontSize: "48px" }} />}
         >
           Up
@@ -116,7 +71,7 @@ export function PointsTracker() {
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() => decrement(points)}
+          onClick={() => decrement()}
           startIcon={<ArrowDownwardIcon style={{ fontSize: "48px" }} />}
         >
           Down

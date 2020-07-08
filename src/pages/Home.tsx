@@ -1,13 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import { DefaultLayout } from "../layouts/DefaultLayout";
+import Button from "@material-ui/core/Button";
+import { signInWithGoogle } from "../firebase";
 
 export const Home = () => {
   return (
     <DefaultLayout>
-      <div>Home Page</div>
-      <Link to={"/sign-in"}>Sign In</Link>
+      <Button variant="contained" color="primary" onClick={signInWithGoogle}>
+        Sign in with Google
+      </Button>
     </DefaultLayout>
   );
 };
