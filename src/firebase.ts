@@ -2,7 +2,6 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 // import { functions } from "firebase";
-import { init } from "@sentry/browser";
 
 export const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -18,15 +17,6 @@ export const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Initialize Sentry
-init({
-  dsn: process.env.REACT_APP_SENTRY_DSN,
-});
-
-// @ts-ignore
-myUndefinedFunction();
-
-
 export const auth = firebase.auth();
 // export const firestore = firebase.firestore();
 
@@ -36,6 +26,7 @@ provider.addScope("email");
 
 export const signInWithGoogle = async () => {
   try {
+    await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     const result = await auth.signInWithPopup(provider);
     // This gives you a Google Access Token.
     const token = result.credential;
@@ -44,6 +35,7 @@ export const signInWithGoogle = async () => {
 
     console.log(token);
     console.log(user);
+    window.location.assign("/points-tracker");
   } catch (error) {
     console.error(error);
   }

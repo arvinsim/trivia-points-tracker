@@ -1,12 +1,18 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
+import { init } from "@sentry/browser";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import { store } from "./redux";
 
 import { PointsTracker } from "./pages/PointsTracker";
 import { Home } from "./pages/Home";
+
+// Initialize Sentry
+init({
+  dsn: process.env.REACT_APP_SENTRY_DSN,
+});
 
 function App() {
   return (
