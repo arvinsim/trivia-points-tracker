@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // core
@@ -34,18 +34,12 @@ export function PointsTracker() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const points = useSelector(selectPoints);
-  const [messages, setMessages] = useState<React.ReactNode[]>([]);
 
-  const addMessage = (message: React.ReactNode) => {
-    setMessages([message, ...messages.slice(0, 4)]);
-  };
   const increment = () => {
     dispatch(incrementPoints());
-    addMessage(`${points} was incremented to ${points}`);
   };
   const decrement = () => {
     dispatch(decrementPoints());
-    addMessage(`${points} was decremented to ${points}`);
   };
 
   return (
@@ -76,15 +70,6 @@ export function PointsTracker() {
         >
           Down
         </Button>
-      </Grid>
-      <Grid item xs={12}>
-        {messages.map((message, index) => {
-          return (
-            <div key={index} className={classes.message}>
-              {message}
-            </div>
-          );
-        })}
       </Grid>
     </DefaultLayout>
   );

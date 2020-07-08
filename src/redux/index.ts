@@ -1,7 +1,6 @@
 import {
   configureStore,
   createSlice,
-  createSelector,
   combineReducers,
   PayloadAction,
 } from "@reduxjs/toolkit";
