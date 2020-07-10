@@ -1,39 +1,28 @@
-import {
-  configureStore,
-  createSlice,
-  combineReducers,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { pointsSlice, userSlice } from "./slices";
 
-const pointsSlice = createSlice({
-  name: "points",
-  initialState: 0,
-  reducers: {
-    incrementPoints(state, action: PayloadAction) {
-      return state + 1;
-    },
-    decrementPoints(state, action: PayloadAction) {
-      return state - 1;
-    },
-    resetPoints(state, action: PayloadAction) {
-      return 0;
-    },
-  },
-});
-
+//  Actions
 export const {
   incrementPoints,
   decrementPoints,
   resetPoints,
 } = pointsSlice.actions;
 
+export const { setUser, resetUser } = userSlice.actions;
+
+// Reducers
 const rootReducer = combineReducers({
   points: pointsSlice.reducer,
+  user: userSlice.reducer,
 });
 
 export const store = configureStore({
   reducer: rootReducer,
 });
 
+// Root State
 export type RootState = ReturnType<typeof rootReducer>;
+
+// selectors
 export const selectPoints = (state: RootState) => state.points;
+export const selectUser = (state: RootState) => state.user;
