@@ -46,7 +46,7 @@ export const signInWithGoogle = async () => {
         email: get(user, "email", ""),
       })
     );
-    // window.location.assign("/points-tracker");
+    window.location.assign("/points-tracker");
   } catch (error) {
     console.error(error);
   }

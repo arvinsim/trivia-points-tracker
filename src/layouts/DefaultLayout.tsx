@@ -1,4 +1,5 @@
 import React from "react";
+import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 
 import Grid from "@material-ui/core/Grid";
@@ -11,9 +12,8 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Route } from "react-router-dom";
 
-import { resetPoints, selectUser } from "../redux";
-import Button from "@material-ui/core/Button";
-import { signInWithGoogle, signOut } from "../firebase";
+import { resetPoints, selectPoints, selectUser } from "../redux";
+import { signOut } from "../firebase";
 
 interface Props {
   children?: React.ReactNode;
@@ -37,6 +37,7 @@ export const DefaultLayout = (props: Props) => {
 
 const PointsTrackerHamburgerMenu = () => {
   const dispatch = useDispatch();
+  const points = useSelector(selectPoints);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleMenuButtonClick = (event: any) => {
@@ -48,7 +49,22 @@ const PointsTrackerHamburgerMenu = () => {
   const reset = () => {
     dispatch(resetPoints());
   };
-  const save = () => {};
+  const savePoints = () => {
+    const user = firebase.auth().currentUser;
+    const sessionData = {
+      userId: user?.uid,
+      points: points,
+      timestamp: Date.now(),
+    };
+    // firebase
+    //   .database()
+    //   .ref("sessions/" + userId)
+    //   .set({
+    //     userId: user.uid,
+    //     email: email,
+    //     points: state,
+    //   });
+  };
 
   return (
     <React.Fragment>
@@ -70,7 +86,7 @@ const PointsTrackerHamburgerMenu = () => {
         onClose={closeMenu}
       >
         <MenuItem onClick={reset}>Reset</MenuItem>
-        <MenuItem onClick={save}>Save</MenuItem>
+        <MenuItem onClick={savePoints}>Save</MenuItem>
         <LogoutMenuItem />
       </Menu>
     </React.Fragment>

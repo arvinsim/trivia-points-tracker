@@ -8,10 +8,10 @@ export const pointsSlice = createSlice({
   name: "points",
   initialState: pointsSliceInitialState,
   reducers: {
-    incrementPoints: (state, action: PayloadAction<undefined>) => {
+    incrementPoints: (state) => {
       return state + 1;
     },
-    decrementPoints: (state, action: PayloadAction<undefined>) => {
+    decrementPoints: (state) => {
       return state - 1;
     },
     resetPoints: (state) => pointsSliceInitialState,
