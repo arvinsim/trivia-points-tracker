@@ -2,16 +2,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Points
 export type pointsSliceState = number;
-const pointsSliceInitialState: pointsSliceState = 0;
+const pointsSliceInitialState = 0 as pointsSliceState;
 
 export const pointsSlice = createSlice({
   name: "points",
   initialState: pointsSliceInitialState,
   reducers: {
-    incrementPoints: (state, action) => {
+    incrementPoints: (state, action: PayloadAction<undefined>) => {
       return state + 1;
     },
-    decrementPoints: (state, action) => {
+    decrementPoints: (state, action: PayloadAction<undefined>) => {
       return state - 1;
     },
     resetPoints: (state) => pointsSliceInitialState,
@@ -19,12 +19,15 @@ export const pointsSlice = createSlice({
 });
 
 // User
-export type userSliceState = { displayName: string; email: string } | null;
+export type userSliceState = {
+  displayName?: string | null;
+  email?: string | null;
+} | null;
 export interface setUserPayload {
   displayName?: string | null;
   email?: string | null;
 }
-const userSliceInitialState: userSliceState = null;
+const userSliceInitialState = null as userSliceState;
 
 export const userSlice = createSlice({
   name: "user",
